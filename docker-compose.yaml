@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: ./TP Todolist/Todo
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3000" # Maps container's port 3000 to host port 3005
+    environment:
+      - NODE_ENV=development 
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./TP Todolist Front/todolists-frontend 
+      dockerfile: Dockerfile
+    ports:
+      - "3006:3000" # Maps container's port 3006 to host port 3000
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:3005 
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
