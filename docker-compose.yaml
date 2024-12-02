@@ -1,23 +1,31 @@
+version: '3.8'
+
 services:
   backend:
     build:
-      context: ./TP Todolist/Todo
+      context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "3005:3000" # Maps container's port 3000 to host port 3005
+      - "3006:3006"  # Mappe le port 3006 interne au port 3006 de l'hôte
+    volumes:
+      - ./backend:/app  # Monte le répertoire local pour un développement interactif
     environment:
-      - NODE_ENV=development 
+      - NODE_ENV=development  # Définit l'environnement de développement
     networks:
       - app-network
 
   frontend:
     build:
-      context: ./TP Todolist Front/todolists-frontend 
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3006:3000" # Maps container's port 3006 to host port 3000
+      - "3000:3000"  # Mappe le port 3000 interne au port 3000 de l'hôte
+    volumes:
+      - ./frontend:/app  # Monte le répertoire local pour un développement interactif
     environment:
-      - REACT_APP_BACKEND_URL=http://localhost:3005 
+      - REACT_APP_BACKEND_URL=http://backend:3006  # URL pour accéder au backend
+    depends_on:
+      - backend  # Assure que le backend est démarré avant le frontend
     networks:
       - app-network
 
