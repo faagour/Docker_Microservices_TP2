@@ -6,10 +6,10 @@ On doit suivre les étapes suivantes.
 #!/bin/bash
 
 # Construction de l'image Docker pour le backend
-docker build -t backend-api:v2 ./backend
+docker build -t users-back:v2 ./backend
 
 # Construction de l'image Docker pour le frontend
-docker build -t frontend-api:v1 ./frontend
+docker build -t users-front:v1 ./frontend
 
 # Liste les images Docker
 docker images
